@@ -51,6 +51,13 @@ function mermaid(type, value, format, meta) {
         confFileOpts += ` -C "${cssFile}"`
     }
 
+    var filt_conf_file = path.join(folder, ".mermaid-filter-config.json");
+    if (fs.existsSync(filt_conf_file)) {
+        const filter_config = JSON.parse(fs.readFileSync(filt_conf_file));
+        options.width = filter_config.width || options.width;
+        options.format = filter_config.format || options.format;
+    }
+
     // console.log(classes)
     if (classes.indexOf('mermaid') < 0) return null;
 
